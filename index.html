@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      html {
+        font-size: 1vw !important;
+        /* overflow: hidden; */
+      }
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      .screen {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .screen1 {
+        overflow: hidden;
+      }
+      .screen1 img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .screen2 {
+        position: relative;
+        align-items: start;
+      }
+      .screen2 .text1,
+      .screen2 .text2 {
+        position: absolute;
+        font-size: 5rem;
+      }
+      .video1 {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .imgs {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+      .screen3 img {
+        object-fit: contain;
+        position: absolute;
+      }
+      .pic1 {
+        width: 10.5em;
+        z-index: -1;
+      }
+      .pic2 {
+        width: 11.5em;
+      }
+      .pic3 {
+        width: 12.5em;
+        z-index: 1;
+      }
+      .pic4 {
+        width: 12.5em;
+        z-index: 1;
+      }
+      .pic9 {
+        width: 11.5em;
+      }
+      .pic10 {
+        width: 14em;
+        z-index: 2;
+      }
+      .pic11 {
+        width: 10.5em;
+        z-index: -1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="screen screen1">
+      <img
+        class="coverImg"
+        src="/img/ea4f34a5b7808e9e69c0906056f07837.webp"
+        alt=""
+      />
+    </div>
+    <div class="screen screen2">
+      <video class="video1" src="/video/cool.mp4"></video>
+      <h1 class="text1">超級</h1>
+      <h1 class="text2">快攻</h1>
+    </div>
+    <div class="screen screen3">
+      <div class="imgs">
+        <img class="pic1" src="/img/1.jpg" alt="" />
+        <img class="pic2" src="/img/2.jpg" alt="" />
+        <img class="pic3" src="/img/3.jpg" alt="" />
+        <img class="pic10" src="/img/10.jpg" alt="" />
+        <img class="pic4" src="/img/4.jpg" alt="" />
+        <img class="pic9" src="/img/9.jpg" alt="" />
+        <img class="pic11" src="/img/11.jpg" alt="" />
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+    <script>
+      // use a script tag or an external JS file
+      document.addEventListener("DOMContentLoaded", (event) => {
+        // gsap code here!
+        gsap.registerPlugin(ScrollTrigger);
+
+        //screen1
+        ScrollTrigger.create({
+          trigger: ".screen1",
+          start: "top top",
+          end: "+=1000",
+          scrub: true,
+          // markers: true,
+          // pin: true,
+          animation: gsap
+            .timeline()
+            .to(".coverImg", { scale: 0.9 })
+            .fromTo(".video1", { scale: 0.9 }, { scale: 1 }, "<"),
+        });
+
+        //video
+        ScrollTrigger.create({
+          trigger: ".screen2",
+          start: "top top",
+          end: "+=2400",
+          scrub: true,
+          // markers: true,
+          pin: true,
+          animation: gsap
+            .timeline()
+            .fromTo(".text1", { opacity: 0 }, { opacity: 1 })
+            .fromTo(".text1", { opacity: 1 }, { opacity: 0 })
+            .fromTo(".text2", { opacity: 0 }, { opacity: 1 })
+            .fromTo(".text2", { opacity: 1 }, { opacity: 0 }),
+          onUpdate(self) {
+            const video = document.querySelector(".video1");
+            try {
+              video.currentTime = self.progress * 12;
+            } catch (e) {
+              console.log(e);
+            }
+          },
+        });
+
+        //screen3
+        ScrollTrigger.create({
+          trigger: ".screen3",
+          start: "top top",
+          end: "+=1000",
+          scrub: true,
+          // markers: true,
+          pin: true,
+          animation: gsap
+            .timeline()
+            .fromTo(".pic10", { width: "15em" }, { width: "14em" })
+            .fromTo(".pic3", { right: "-6.3em" }, { right: "7em" }, "<")
+            .fromTo(".pic4", { left: "-6.3em" }, { left: "7em" }, "<")
+            .fromTo(".pic9", { right: "-6.3em" }, { right: "-31em" }, "<")
+            .fromTo(".pic2", { left: "-6.3em" }, { left: "-31em" }, "<")
+            .fromTo(".pic1", { right: "-6.3em" }, { right: "-41.5em" }, "<")
+            .fromTo(".pic11", { left: "-6.3em" }, { left: "-41.5em" }, "<"),
+        });
+        // const t = gsap.timeline();
+        // t.fromTo(".pic3", { right: "-6.3em" }, { right: "7em" }, "<");
+        // t.fromTo(".pic4", { left: "-6.3em" }, { left: "7em" }, "<");
+        // t.fromTo(".pic9", { right: "-6.3em" }, { right: "-31em" }, "<");
+        // t.fromTo(".pic2", { left: "-6.3em" }, { left: "-31em" }, "<");
+        // t.fromTo(".pic1", { right: "-6.3em" }, { right: "-41.5em" }, "<");
+        // t.fromTo(".pic11", { left: "-6.3em" }, { left: "-41.5em" }, "<");
+      });
+    </script>
+  </body>
+</html>
